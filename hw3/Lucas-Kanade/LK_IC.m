@@ -91,8 +91,8 @@ classdef LK_IC < LK
                 % M = p2M(o.w, p); and also p = M2p(o.w, M);
                 
                 % err: 5.14689
-                dp_inv = inv(p2M(o.w, dp))                                
-                new_dp = M2p(o.w, dp_inv)                
+                dp_inv = inv(p2M(o.w, dp));                               
+                new_dp = M2p(o.w, dp_inv);              
                 p = p + new_dp;
                 
                 % err: 5.1218
