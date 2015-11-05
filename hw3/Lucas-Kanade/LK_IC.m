@@ -30,8 +30,8 @@ classdef LK_IC < LK
             o@LK(tmplt); 
 
             % Pre-compute the Gaussian blur filter
-            %o.T_0 = imfilter(o.T_0, o.fb,'replicate'); % Blur the template before hand
-            o.T_0 = imfilter(o.T_0, o.fb); % Blur the template before hand
+            o.T_0 = imfilter(o.T_0, o.fb,'replicate'); % Blur the template before hand
+%             o.T_0 = imfilter(o.T_0, o.fb); % Blur the template before hand
             
             Tx_0 = imfilter(o.T_0, o.fx,'replicate'); % Get the x-gradient
             Ty_0 = imfilter(o.T_0, o.fy,'replicate'); % Get the y-gradient
@@ -91,15 +91,18 @@ classdef LK_IC < LK
                 % M = p2M(o.w, p); and also p = M2p(o.w, M);
                 
                 % err: 5.14689
-                dp_inv = inv(p2M(o.w, dp));                               
-                new_dp = M2p(o.w, dp_inv);              
-                p = p + new_dp;
+%                 dp_inv = inv(p2M(o.w, dp));                               
+%                 new_dp = M2p(o.w, dp_inv);              
+%                 p = p + new_dp;
+
+                % err: 5.17385
+                %p = p - dp;
                 
                 % err: 5.1218
-%                 dp_inv = inv(p2M(o.w, dp))                                
-%                 warp_p = p2M(o.w, p)
-%                 comp_M = warp_p * dp_inv
-%                 p = M2p(o.w, comp_M)
+                dp_inv = inv(p2M(o.w, dp))                                
+                warp_p = p2M(o.w, p)
+                comp_M = warp_p * dp_inv
+                p = M2p(o.w, comp_M)
                 
                 % p = inv(p) o delta_p
                 %delta_M = inv(p2M(o.w, p))                
